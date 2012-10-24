@@ -168,7 +168,7 @@ public class Program
 		    rawLines.set(i, "." + rawLines.get(i));
 	    rawLines.add(".");
 	    for (int i = 0, n = rawLines.size(); i < n; i++)
-		rawLines.add(rawLines.get(i));
+		rawLines.add(rawLines.get(i).replace("\033", "\033\033"));
 	    rawLines.insert(0, "#!/usr/bin/env ponydocs");
 	    
 	    save(docfile, rawLines);
@@ -191,15 +191,26 @@ public class Program
 	if (revised)
 	{
 	    boolean first = true;
-	    for (final String line : rawLines)
+	    for (String line : rawLines)
 		if (first == true)
 		    first = line.equals(".") == false;
 		else if (line.equals("."))
 		    return;
-		else if (line.startsWith("."))
-		    System.err.println(line.substring(1));
 		else
+		{   if (line.startsWith("."))
+			line = line.substring(1);
+		    if (line.contains("\033"))
+		    {
+		        final char[] buf = new char[line.length()];
+			int ptr = 0;
+		        for (int n = line.length(), i = 0; i < n; i++)
+			    if ((line.charAt(i) != '\033') || (line.charAt(++i) == '\033'))
+				buf[ptr++] = line.charAt(i);
+			
+			line = new String(buf, 0, ptr);
+		    }
 		    System.err.println(line);
+		}
 	}
 	
 	if (original || revised)
