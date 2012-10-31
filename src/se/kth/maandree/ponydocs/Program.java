@@ -232,7 +232,103 @@ public class Program
 	
 	for (int d; (d = System.in.read()) != -1;)
 	{
-	    System.out.println(d);
+	    if (d == '\033')
+	    {   d = System.in.read();
+		if ((d == '[') || (d == '\033'))
+		{
+		    boolean meta = false;
+		    if (d == '\033')
+		    {   d = System.in.read();
+			meta = true;
+		    }
+		    if (d == '[')
+		    {
+			String dd = "";
+			for (;;)
+			{   char c = (char)(System.in.read());
+			    dd += c;
+			    if (('a' <= c) && (c <= 'z'))  break;
+			    if (('A' <= c) && (c <= 'Z'))  break;
+			    if (c == '~')
+				break;
+			}
+			switch (dd)
+			{
+			    case "1~":
+				break;
+			    case "2~":
+				break;
+			    case "3~":
+				break;
+			    case "4~":
+				break;
+			    case "5~":
+				break;
+			    case "6~":
+				break;
+			    case "A":
+				break;
+			    case "B":
+				break;
+			    case "C":
+				break;
+			    case "D":
+				break;
+			    case ";A": /* and all the modifier values */
+				break;
+			    case ";B":
+				break;
+			    case ";C":
+				break;
+			    case ";D":
+				break;
+			}
+		    }
+		    else if (meta && (d == 'b'));
+		    else if (meta && (d == 'B'));
+		}
+	        else if ((d == 'b') || (d == 'B'));
+	        else if ((d == 'f') || (d == 'F'));
+	        else if ((d == 'n') || (d == 'N'));
+	        else if ((d == 'p') || (d == 'P'));
+	        else if ((d == 'w') || (d == 'W'));
+	        else if ((d == 'Y') || (d == 'Y'));
+	        else if (d == 'O')
+		{
+		    d = System.in.read();
+		    if (d == 'F');
+		    else if (d == 'H');
+		}
+	    }
+	    else if (d == 'X' - '@')
+	    {   d = System.in.read();
+		if (d == 'X' - '@');
+		else if (d == 'S' - '@');
+		else if (d == 'C' - '@');
+		else if (d == 'E' - '@');
+		else if (d == 'F' - '@');
+		else if (d == 'B' - '@');
+	    }
+	    else if ((d == 127) || (d == 8));
+	    else if (d == '?' ^ '@');
+	    else if (d == '@' - '@');
+	    else if (d == 'A' - '@');
+	    else if (d == 'B' - '@');
+	    else if (d == 'E' - '@');
+	    else if (d == 'F' - '@');
+	    else if (d == 'K' - '@');
+	    else if (d == 'L' - '@');
+	    else if (d == 'N' - '@');
+	    else if (d == 'O' - '@');
+	    else if (d == 'P' - '@');
+	    else if (d == 'Q' - '@');
+	    else if (d == 'R' - '@');
+	    else if (d == 'S' - '@');
+	    else if (d == 'T' - '@');
+	    else if (d == 'W' - '@');
+	    else if (d == 'Y' - '@');
+	    else if (d == '\n');
+	    else if (d >= ' ');
 	}
     }
     
