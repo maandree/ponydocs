@@ -249,30 +249,30 @@ public class Program
 			    dd += c;
 			    if (('a' <= c) && (c <= 'z'))  break;
 			    if (('A' <= c) && (c <= 'Z'))  break;
-			    if (c == '~')
+			    if ((c == '~') || (c == '\033'))
 				break;
 			}
 			switch (dd)
 			{
-			    case "1~":
+			    case "1~": /* toggle override (?) */
 				break;
-			    case "2~":
+			    case "2~": /* home (?) */
 				break;
-			    case "3~":
+			    case "3~": /* end (?) */
 				break;
-			    case "4~":
+			    case "4~": /* delete (?)*/
 				break;
-			    case "5~":
+			    case "5~": /* page up */
 				break;
-			    case "6~":
+			    case "6~": /* page down*/
 				break;
-			    case "A":
+			    case "A": /* previous line */
 				break;
-			    case "B":
+			    case "B": /* next line */
 				break;
-			    case "C":
+			    case "C": /* next char */
 				break;
-			    case "D":
+			    case "D": /* previous char */
 				break;
 			    case ";A": /* and all the modifier values */
 				break;
@@ -284,51 +284,51 @@ public class Program
 				break;
 			}
 		    }
-		    else if (meta && (d == 'b'));
-		    else if (meta && (d == 'B'));
 		}
-	        else if ((d == 'b') || (d == 'B'));
-	        else if ((d == 'f') || (d == 'F'));
-	        else if ((d == 'n') || (d == 'N'));
-	        else if ((d == 'p') || (d == 'P'));
-	        else if ((d == 'w') || (d == 'W'));
-	        else if ((d == 'Y') || (d == 'Y'));
+	        else if ((d == 'b') || (d == 'B')) /* previous word */;
+	        else if ((d == 'f') || (d == 'F')) /* next work */;
+	        else if ((d == 'n') || (d == 'N')) /* next bookmark */;
+	        else if ((d == 'p') || (d == 'P')) /* previous bookmark */;
+	        else if ((d == 'u') || (d == 'U')) /* reverse undo direction */;
+	        else if ((d == 'w') || (d == 'W')) /* copy */;
+	        else if ((d == 'y') || (d == 'Y')) /* cycle killring */;
 	        else if (d == 'O')
 		{
 		    d = System.in.read();
-		    if (d == 'F');
-		    else if (d == 'H');
+		    if (d == 'F') /* end */;
+		    else if (d == 'H') /* home */;
 		}
 	    }
 	    else if (d == 'X' - '@')
 	    {   d = System.in.read();
-		if (d == 'X' - '@');
-		else if (d == 'S' - '@');
-		else if (d == 'C' - '@');
-		else if (d == 'E' - '@');
-		else if (d == 'F' - '@');
-		else if (d == 'B' - '@');
+		if (d == 'X' - '@') /* swap mark */;
+		else if (d == 'S' - '@') /* save */;
+		else if (d == 'C' - '@') /* exit */;
+		else if (d == 'E' - '@') /* start correction */;
+		else if (d == 'F' - '@') /* stop correction */;
+		else if (d == 'B' - '@') /* toggle bookmark */;
 	    }
-	    else if ((d == 127) || (d == 8));
-	    else if (d == '?' ^ '@');
-	    else if (d == '@' - '@');
-	    else if (d == 'A' - '@');
-	    else if (d == 'B' - '@');
-	    else if (d == 'E' - '@');
-	    else if (d == 'F' - '@');
-	    else if (d == 'K' - '@');
-	    else if (d == 'L' - '@');
-	    else if (d == 'N' - '@');
-	    else if (d == 'O' - '@');
-	    else if (d == 'P' - '@');
-	    else if (d == 'Q' - '@');
-	    else if (d == 'R' - '@');
-	    else if (d == 'S' - '@');
-	    else if (d == 'T' - '@');
-	    else if (d == 'W' - '@');
-	    else if (d == 'Y' - '@');
-	    else if (d == '\n');
-	    else if (d >= ' ');
+	    else if ((d == 127) || (d == 8)); /* backspace */
+	    else if (d == '?' ^ '@') /* special undo */;
+	    else if (d == '@' - '@') /* mark */;
+	    else if (d == 'A' - '@') /* home */;
+	    else if (d == 'B' - '@') /* next char */;
+	    else if (d == 'E' - '@') /* end */;
+	    else if (d == 'F' - '@') /* next char */;
+	    else if (d == 'K' - '@') /* kill */;
+	    else if (d == 'L' - '@') /* recenter */;
+	    else if (d == 'N' - '@') /* next line */;
+	    else if (d == 'O' - '@') /* insert line */;
+	    else if (d == 'P' - '@') /* previous line */;
+	    else if (d == 'Q' - '@') /* verbatim */;
+	    else if (d == 'R' - '@') /* reverse search */;
+	    else if (d == 'S' - '@') /* search */;
+	    else if (d == 'T' - '@') /* transpose char */;
+	    else if (d == 'U' - '@') /* undo */;
+	    else if (d == 'W' - '@') /* cut */;
+	    else if (d == 'Y' - '@') /* yank */;
+	    else if (d == '\n') /* new line */;
+	    else if (d >= ' ') /* write */;
 	}
     }
     
