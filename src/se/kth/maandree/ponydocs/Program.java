@@ -47,6 +47,8 @@ public class Program
      */
     public static void main(final String... args) throws Throwable
     {
+	final String HYPHEN = "{WRAP}";
+	
 	String docfile = null;
 	boolean original = false;
 	boolean revised = false;
@@ -170,6 +172,18 @@ public class Program
 	    for (int i = 0, n = rawLines.size(); i < n; i++)
 		rawLines.add(rawLines.get(i).replace("\033", "\033\033"));
 	    rawLines.insert(0, "#!/usr/bin/env ponydocs");
+	    
+	    /* naïve wrapping, (becuase) the use have a chance to make the wrapping perfect */
+	     for (int i = 1; i < rawLines.size(); i++)
+	     {   String line = rawLines.get(i);
+		 if (line.startswith("."))
+		     line = line.substring(1);
+		 if (line.length() > 90)
+		 {
+		     rawLines.set(i) = (line.startswith(".") ? "." : "") + line.substring(0, 90 - HYPHEN.length()) + HYPHEN;
+		     rawLines.insert(i + 1, line.substring(90 - HYPHEN.length()));
+		 }
+	     }
 	    
 	    save(docfile, rawLines);
 	}
