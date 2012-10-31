@@ -284,19 +284,26 @@ public class Program
 				break;
 			}
 		    }
-		}
-	        else if ((d == 'b') || (d == 'B')) /* previous word */;
-	        else if ((d == 'f') || (d == 'F')) /* next work */;
-	        else if ((d == 'n') || (d == 'N')) /* next bookmark */;
-	        else if ((d == 'p') || (d == 'P')) /* previous bookmark */;
-	        else if ((d == 'u') || (d == 'U')) /* reverse undo direction */;
-	        else if ((d == 'w') || (d == 'W')) /* copy */;
-	        else if ((d == 'y') || (d == 'Y')) /* cycle killring */;
-	        else if (d == 'O')
-		{
-		    d = System.in.read();
-		    if (d == 'F') /* end */;
-		    else if (d == 'H') /* home */;
+		    else if ((d == 'b') || (d == 'B')) /* previous word */;
+		    else if ((d == 'f') || (d == 'F')) /* next work */;
+		    else if ((d == 'n') || (d == 'N')) /* next bookmark */;
+		    else if ((d == 'p') || (d == 'P')) /* previous bookmark */;
+		    else if ((d == 'u') || (d == 'U')) /* reverse undo direction */;
+		    else if ((d == 'w') || (d == 'W')) /* copy */;
+		    else if ((d == 'y') || (d == 'Y')) /* cycle killring */;
+		    else if (d == '1') /* make non-bold */;
+		    else if (d == '2') /* make non-dim */;
+		    else if (d == '3') /* nake non-reverse video */;
+		    else if (d == '4') /* make non-emphasized */;
+		    else if (d == '5') /* default foreground */;
+		    else if (d == '6') /* default background */;
+		    else if (d == '0') /* remove formattnig, except colour */;
+		    else if (d == 'O')
+		    {
+			d = System.in.read();
+			if (d == 'F') /* end */;
+			else if (d == 'H') /* home */;
+		    }
 		}
 	    }
 	    else if (d == 'X' - '@')
@@ -308,8 +315,22 @@ public class Program
 		else if (d == 'F' - '@') /* stop correction */;
 		else if (d == 'B' - '@') /* toggle bookmark */;
 	    }
-	    else if ((d == 127) || (d == 8)); /* backspace */
 	    else if (d == '?' ^ '@') /* special undo */;
+	    else if (d == '1' ^ '@') /* make bold */;
+	    else if (d == '2' ^ '@') /* make dim */;
+	    else if (d == '3' ^ '@') /* nake reverse video */;
+	    else if (d == '4' ^ '@') /* make emphasized */;
+	    else if ((d == '5' ^ '@') || (d == '6' ^ '@')) /* set foreground/backgroud */;
+	    {
+		boolean background = d == '6' ^ '@';
+		d = System.in.read() - 1;
+		if (('0' <= d) || (d <= '7')) /* (?red)(?green)(?blue) */
+		    ;
+		else if (d == '8') /* default */
+		    ;
+	    }
+	    else if ((d == 127) || (d == 8)); /* backspace */
+	    else if (d == '9' ^ '@') /* unformat */;
 	    else if (d == '@' - '@') /* mark */;
 	    else if (d == 'A' - '@') /* home */;
 	    else if (d == 'B' - '@') /* next char */;
