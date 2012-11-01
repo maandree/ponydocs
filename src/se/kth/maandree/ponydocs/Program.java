@@ -230,8 +230,21 @@ public class Program
 	if (original || revised)
 	    return;
 	
-	for (int d; (d = System.in.read()) != -1;)
+	boolean override = false;
+        boolean markset = false;
+	int mark = 0, point = 0;
+	
+	for (int d, stored = 0;;)
 	{
+	    if (stored == 0)
+	    {   d = System.in.read();
+		if (d == -1)
+		    break;
+	    }
+	    else
+	    {   d = stored & 255;
+		stored >>>= 8;
+	    }
 	    if (d == '\033')
 	    {   d = System.in.read();
 		if ((d == '[') || (d == '\033'))
@@ -255,24 +268,31 @@ public class Program
 			switch (dd)
 			{
 			    case "1~": /* toggle override (?) */
+				override ^= true;
 				break;
 			    case "2~": /* home (?) */
+				stored = 'A' - '@';
 				break;
 			    case "3~": /* end (?) */
+				stored = 'E' - '@';
 				break;
-			    case "4~": /* delete (?)*/
+			    case "4~": /* delete (?) */
 				break;
-			    case "5~": /* page up */
+			    case "5~": /* page up (?) */
 				break;
-			    case "6~": /* page down*/
+			    case "6~": /* page down (?) */
 				break;
 			    case "A": /* previous line */
+				stored = 'P' - '@';
 				break;
 			    case "B": /* next line */
+				stored = 'N' - '@';
 				break;
 			    case "C": /* next char */
+				stored = 'F' - '@';
 				break;
 			    case "D": /* previous char */
+				stored = 'B' - '@';
 				break;
 			    case ";A": /* and all the modifier values */
 				break;
@@ -297,20 +317,27 @@ public class Program
 		    else if (d == '4') /* make non-emphasized */;
 		    else if (d == '5') /* default foreground */;
 		    else if (d == '6') /* default background */;
-		    else if (d == '0') /* remove formattnig, except colour */;
+		    else if (d == '0') /* remove formatting, except colour */;
 		    else if (d == 'O')
-		    {
-			d = System.in.read();
-			if (d == 'F') /* end */;
+		    {   d = System.in.read();
+			if (d == 'F') /* end */
+			    stored = 'E' - '@';
 			else if (d == 'H') /* home */;
+			    stored = 'A' - '@';
 		    }
 		}
 	    }
 	    else if (d == 'X' - '@')
 	    {   d = System.in.read();
-		if (d == 'X' - '@') /* swap mark */;
+		if (d == 'X' - '@') /* swap mark */
+		{   if (markset == false)
+			; //TODO alert
+		    else
+			mark = (point = (mark ^= point) ^ point) ^ mark;
+		}
 		else if (d == 'S' - '@') /* save */;
-		else if (d == 'C' - '@') /* exit */;
+		else if (d == 'C' - '@') /* exit */
+		    break;
 		else if (d == 'E' - '@') /* start correction */;
 		else if (d == 'F' - '@') /* stop correction */;
 		else if (d == 'B' - '@') /* toggle bookmark */;
@@ -324,10 +351,8 @@ public class Program
 	    {
 		boolean background = d == '6' ^ '@';
 		d = System.in.read() - 1;
-		if (('0' <= d) || (d <= '7')) /* (?red)(?green)(?blue) */
-		    ;
-		else if (d == '8') /* default */
-		    ;
+		if (('0' <= d) || (d <= '7')) /* (?red)(?green)(?blue) */;
+		else if (d == '8') /* default */;
 	    }
 	    else if ((d == 127) || (d == 8)); /* backspace */
 	    else if (d == '9' ^ '@') /* unformat */;
@@ -336,10 +361,18 @@ public class Program
 	    else if (d == 'B' - '@') /* next char */;
 	    else if (d == 'E' - '@') /* end */;
 	    else if (d == 'F' - '@') /* next char */;
-	    else if (d == 'K' - '@') /* kill */;
+	    else if (d == 'K' - '@') /* kill */
+		if (markset && (mark > 0))
+		{   stored = 'W' - '@';
+		    markset = false;
+		}
+		else
+		    // TODO if and of line
+		    stored = 0 + (('E' - '@') >> 8) + (('W' - '@') >> 8);
 	    else if (d == 'L' - '@') /* recenter */;
 	    else if (d == 'N' - '@') /* next line */;
-	    else if (d == 'O' - '@') /* insert line */;
+	    else if (d == 'O' - '@') /* insert line */
+		stored = 10 + (('B' - '@') >> 8);
 	    else if (d == 'P' - '@') /* previous line */;
 	    else if (d == 'Q' - '@') /* verbatim */;
 	    else if (d == 'R' - '@') /* reverse search */;
