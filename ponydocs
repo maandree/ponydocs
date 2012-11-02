@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 echo -en '\e[?1049h'
-stty -icanon -echo
+stty -icanon -echo -isig -ixon -ixoff
 echo -en '\e[?25l'
 (hash java7 2>/dev/null)
 if [ $? = 0 ]; then
@@ -10,6 +10,6 @@ else
 fi
 rc=$?
 echo -en '\e[?25h'
-stty icanon echo
+stty icanon echo isig ixon ixoff
 echo -en '\e[?1049l'
 exit $rc
