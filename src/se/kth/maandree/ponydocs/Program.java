@@ -65,7 +65,7 @@ public class Program
 		if (docfile == null)
 		    docfile = arg;
 		else
-		{   System.err.println("You may only one one file. Sorry...");
+		{   System.err.println("You may only use one file. Sorry...");
 		    System.exit(253);
 		    return;
 		}
@@ -80,7 +80,7 @@ public class Program
 	    else if (docfile == null)
 		docfile = arg;
 	    else
-	    {   System.err.println("You may only one one file. Sorry...");
+	    {   System.err.println("You may only use one file. Sorry...");
 		System.exit(253);
 		return;
 	    }
