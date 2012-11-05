@@ -173,7 +173,7 @@ public class Program
 		rawLines.add(rawLines.get(i).replace("\033", "\033\033"));
 	    rawLines.insert(0, "#!/usr/bin/env ponydocs");
 	    
-	    /* naïve wrapping, (becuase) the use have a chance to make the wrapping perfect */
+	    /* naïve wrapping, (because) the use have a chance to make the wrapping perfect */
 	     for (int i = 1; i < rawLines.size(); i++)
 	     {   String line = rawLines.get(i);
 		 if (line.startswith("."))
