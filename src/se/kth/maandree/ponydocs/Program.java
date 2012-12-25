@@ -174,16 +174,16 @@ public class Program
 	    rawLines.insert(0, "#!/usr/bin/env ponydocs");
 	    
 	    /* naïve wrapping, (because) the use have a chance to make the wrapping perfect */
-	     for (int i = 1; i < rawLines.size(); i++)
-	     {   String line = rawLines.get(i);
-		 if (line.startswith("."))
-		     line = line.substring(1);
-		 if (line.length() > 90)
-		 {
-		     rawLines.set(i) = (line.startswith(".") ? "." : "") + line.substring(0, 90 - HYPHEN.length()) + HYPHEN;
-		     rawLines.insert(i + 1, line.substring(90 - HYPHEN.length()));
-		 }
-	     }
+	    for (int i = 1; i < rawLines.size(); i++)
+	    {   String line = rawLines.get(i);
+		if (line.startswith("."))
+		    line = line.substring(1);
+		if (line.length() > 90)
+		{
+		    rawLines.set(i) = (line.startswith(".") ? "." : "") + line.substring(0, 90 - HYPHEN.length()) + HYPHEN;
+		    rawLines.insert(i + 1, line.substring(90 - HYPHEN.length()));
+		}
+	    }
 	    
 	    save(docfile, rawLines);
 	}
@@ -367,7 +367,7 @@ public class Program
 		    markset = false;
 		}
 		else
-		    // TODO if and of line
+		    // TODO if end of line
 		    stored = 0 + (('E' - '@') >> 8) + (('W' - '@') >> 8);
 	    else if (d == 'L' - '@') /* recenter */;
 	    else if (d == 'N' - '@') /* next line */;
